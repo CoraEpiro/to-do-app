@@ -21,9 +21,6 @@ class ToDoListItem extends React.Component{
             }
         })
     }
-    onItemDelete = () => {
-
-    }
     render() {
         const {text, } = this.props
         const {done,important} = this.state
