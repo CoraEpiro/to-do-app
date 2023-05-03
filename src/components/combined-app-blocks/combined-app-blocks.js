@@ -7,11 +7,11 @@ import InputPanel from "../add-app-input-panel";
 import ImportanceSelector from "../importance-selector";
 import AddBtn from "../add-btn";
 import React from "react";
-
+import "./combined-app-blocks.css"
 const AppBlocks = () => {
     return (
         <div className="todo-app">
-            <AppHeader/>
+            <AppHeader todo={1} done={2}/>
             <div className="top-panel d-flex">
                 <SearchPanel/>
                 <ItemStatusFilter/>
