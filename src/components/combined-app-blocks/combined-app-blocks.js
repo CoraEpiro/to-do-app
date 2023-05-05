@@ -2,7 +2,6 @@ import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
 import ItemStatusFilter from "../item-status-filter/item-status-filter";
 import ToDoList from "../to-do-list";
-import { ToDoData }  from "../to-do-app/app";
 import InputPanel from "../add-app-input-panel";
 import ImportanceSelector from "../importance-selector";
 import AddBtn from "../add-btn";
@@ -16,7 +15,7 @@ const AppBlocks = () => {
                 <SearchPanel/>
                 <ItemStatusFilter/>
             </div>
-            <ToDoList toDos={ToDoData}/>
+            <ToDoList />
             <div className="top-panel d-flex">
                 <InputPanel/>
                 <ImportanceSelector/>

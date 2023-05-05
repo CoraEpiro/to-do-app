@@ -1,3 +1,11 @@
 .btn-group{
     margin-left: 3px;
 }
+
+.hideActives{
+    visibility: collapse;
+}
+
+.visibleActives{
+     visibility: visible;
+ }

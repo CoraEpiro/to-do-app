@@ -11,7 +11,7 @@ export const ToDoData =
     ]
 const App = () => {
   return (
-    <AppBlocks/>
+    <AppBlocks />
   )
 }
 

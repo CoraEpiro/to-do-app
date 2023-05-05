@@ -1,6 +1,8 @@
 import React from "react";
 import "./to-do-list-item.css"
-
+import { ToDoData } from "../to-do-app/app.js"
+import ReactDOM from "react-dom";
+import AppBlocks from "../combined-app-blocks";
 class ToDoListItem extends React.Component{
     state = {
         done: false,
@@ -21,16 +23,24 @@ class ToDoListItem extends React.Component{
             }
         })
     }
+    onItemDelete = () => {
+        const itemToDelete = this.props.valueOf()
+        const index = ToDoData.findIndex(item => item.text === itemToDelete.text)
+        ToDoData.splice(index, 1)
+        ReactDOM.render(<AppBlocks ToDoData={ToDoData} />, document.getElementById('root'))
+    }
     render() {
-        const {text, } = this.props
-        const {done,important} = this.state
+        const {text,} = this.props
+        const {done, important} = this.state
         let classNames = "todo-list-item"
-        if(done){
+        if (done) {
             classNames += " done"
         }
-        if(important){
+
+        if (important) {
             classNames += " important"
         }
+
         return (
             <span className={classNames}>
                 <span className="todo-list-item-label"
@@ -52,5 +62,4 @@ class ToDoListItem extends React.Component{
         )
     }
 }
-
 export default ToDoListItem
