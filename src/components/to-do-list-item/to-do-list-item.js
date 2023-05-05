@@ -1,8 +1,6 @@
 import React from "react";
 import "./to-do-list-item.css"
-import { ToDoData } from "../to-do-app/app.js"
 import ReactDOM from "react-dom";
-import AppBlocks from "../combined-app-blocks";
 class ToDoListItem extends React.Component{
     state = {
         done: false,
@@ -23,15 +21,24 @@ class ToDoListItem extends React.Component{
             }
         })
     }
-    onItemDelete = () => {
-        const itemToDelete = this.props.valueOf()
-        const index = ToDoData.findIndex(item => item.text === itemToDelete.text)
-        ToDoData.splice(index, 1)
-        ReactDOM.render(<AppBlocks ToDoData={ToDoData} />, document.getElementById('root'))
-    }
+    // onItemDelete = () => {
+    //     const itemToDelete = this.props.valueOf()
+    //     console.log(itemToDelete)
+    //     const index = ToDoData.findIndex(item => item.text === itemToDelete.text)
+    //     console.log(index)
+    //     ToDoData.splice(index, 1)
+    //     ReactDOM.render(<AppBlocks toDos={ToDoData} />, document.getElementById('root'))
+    // }
     render() {
-        const {text,} = this.props
-        const {done, important} = this.state
+        const {
+            text,
+            onDelete,
+            onToggleImportant,
+            onToggleDone,
+            important,
+            done
+        } = this.props
+
         let classNames = "todo-list-item"
         if (done) {
             classNames += " done"
@@ -44,18 +51,18 @@ class ToDoListItem extends React.Component{
         return (
             <span className={classNames}>
                 <span className="todo-list-item-label"
-                      onClick={this.onItemClick}>
+                      onClick={onToggleDone}>
                     {text}
                 </span>
                 <button type="button"
                         className="btn btn-outline-success btn-sm float-right"
-                        onClick={this.onMarkImportant}>
+                        onClick={onToggleImportant}>
                     <i className="fa fa-check"/>
                 </button>
 
                 <button type="button"
                         className="btn btn-outline-danger btn-sm float-right"
-                        onClick={this.onItemDelete}>
+                        onClick={onDelete}>
                     <i className="fa fa-trash-o"/>
                 </button>
             </span>

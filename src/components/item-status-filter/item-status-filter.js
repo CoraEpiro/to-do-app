@@ -1,21 +1,20 @@
 import React from "react";
 import './item-status-filter.css'
-import {ToDoData} from "../to-do-app/app";
 
 class ItemStatusFilter extends React.Component{
-    onShowActive = () => {
-        for (let i = 0; i < ToDoData.length; i++)
-        {
-            document.getElementsByClassName("list-group-item").item(i).classList.remove("hideActives")
-        }
-    }
+    // onShowActive = () => {
+    //     for (let i = 0; i < ToDoData.length; i++)
+    //     {
+    //         document.getElementsByClassName("list-group-item").item(i).classList.remove("hideActives")
+    //     }
+    // }
 
-    onShowDone = () => {
-        for (let i = 0; i < ToDoData.length; i++)
-        {
-            document.getElementsByClassName("list-group-item").item(i).className += " hideActives"
-        }
-    }
+    // onShowDone = () => {
+    //     for (let i = 0; i < ToDoData.length; i++)
+    //     {
+    //         document.getElementsByClassName("list-group-item").item(i).className += " hideActives"
+    //     }
+    // }
 
     render() {
         return (
@@ -26,13 +25,11 @@ class ItemStatusFilter extends React.Component{
                         All
                 </button>
                 <button
-                    onClick={this.onShowActive}
                     type="button"
                     className="btn btn-secondary">
                         Active
                 </button>
                 <button
-                    onClick={this.onShowDone}
                     type="button"
                     className="btn btn-secondary">
                         Done

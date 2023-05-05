@@ -1,34 +1,35 @@
 import ToDoListItem from "../to-do-list-item"
-import { ToDoData } from "../to-do-app/app";
 import "./to-do-list.css"
 import React from "react";
-class ToDoList extends React.Component{
-    state = {
-        active: true
-    }
+const ToDoList = ({
+                    todos,
+                    onDelete
+                  }) => {
 
-    items = ToDoData.map((item) => {
-        const {key, ...itemProps} = item
+    const items = todos.map((item) => {
+        const {id, ...itemProps} = item
         return (
-            <li key={item.key} className="list-group-item">
-                <ToDoListItem {...itemProps}/>
+            <li key={id} className="list-group-item">
+                <ToDoListItem {...itemProps}
+                            onDelete={()=> {
+                                onDelete(id)
+                            }}
+                            onToggleDone={()=> {
+                                onToggleDone(id)
+                            }}
+                            onToggleImportant={()=> {
+                                onToggleImportant(id)
+                            }}
+
+                />
             </li>
         )
     })
 
-    render() {
-        const active = this.state
-        if(active)
-        {
-            return (
-                <ul className="list-group todo-list">
-                    {this.items}
-                </ul>
-            )
-        }
-
-    }
-
+    return (
+        <ul className="list-group todo-list">
+            {items}
+        </ul>
+    )
 }
-
 export default ToDoList

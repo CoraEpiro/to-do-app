@@ -1,7 +1,5 @@
-import React from "react";
-import ReactDOM from 'react-dom';
-import { ToDoData } from "../to-do-app/app.js"
-import AppBlocks from "../combined-app-blocks";
+import React from "react"
+import ReactDOM from 'react-dom'
 
 const ToDoAdd = () => {
     return <button
@@ -12,11 +10,11 @@ const ToDoAdd = () => {
     </button>
 }
 
-function addNewItem() {
-    const newItem = document.getElementById("newToDo").value;
-    const importance = document.getElementById("importanceSelector").value === "true";
-    ToDoData.push({text: newItem, important: importance, key:ToDoData.length + 1});
-
-    ReactDOM.render(<AppBlocks ToDoData={ToDoData} />, document.getElementById('root'))
+ function addNewItem() {
+//     const newItem = document.getElementById("newToDo").value
+//     const importance = document.getElementById("importanceSelector").value === "true"
+//     ToDoData.push({text: newItem, important: importance, key:ToDoData.length + 1})
+//
+//     ReactDOM.render(<AppBlocks toDos={ToDoData} />, document.getElementById('root'))
 }
 export default ToDoAdd
