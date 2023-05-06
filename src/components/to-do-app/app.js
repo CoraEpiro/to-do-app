@@ -19,12 +19,12 @@ class App extends React.Component{
         ]
     }
 
-    createItem = (text) => {
+    createItem(text) {
         return{
-            text: text,
+            text,
             important: false,
             done: false,
-            key: ++this.idSeeder
+            id: ++this.idSeeder
         }
     }
     deleteItem = (id) => {
@@ -41,7 +41,7 @@ class App extends React.Component{
     }
 
     toggleProperty(arr, id, propName){
-        const idx = arr.findIndex((del) => del.id === id)
+        const idx = arr.findIndex((prop) => prop.id === id)
         const oldItem = arr[idx]
         const newItem = {...oldItem, [propName]: !oldItem[propName]}
         return {
@@ -73,7 +73,10 @@ class App extends React.Component{
                     <ItemStatusFilter/>
                 </div>
                 <ToDoList todos={this.state.toDoData}
-                            onDelete={this.deleteItem}/>
+                          onDelete={this.deleteItem}
+                          onToggleImportant={this.onToggleImportant}
+                          onToggleDone={this.onToggleDone}
+                />
                 <div className="top-panel d-flex">
                     <InputPanel/>
                     <ImportanceSelector/>
