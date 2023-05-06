@@ -8,30 +8,6 @@ const ToDoListItem = ({
                           onToggleDone,
                           onToggleImportant
                       }) => {
-    // const onItemClick = () => {
-    //     //console.log(`Done ${this.props.text}`)
-    //     this.setState(({done}) => {
-    //         return{
-    //             done: !done
-    //         }
-    //     })
-    // }
-    // const onMarkImportant = () => {
-    //     this.setState(({important}) => {
-    //         return{
-    //             important: !important
-    //         }
-    //     })
-    // }
-    // onItemDelete = () => {
-    //     const itemToDelete = this.props.valueOf()
-    //     console.log(itemToDelete)
-    //     const index = ToDoData.findIndex(item => item.text === itemToDelete.text)
-    //     console.log(index)
-    //     ToDoData.splice(index, 1)
-    //     ReactDOM.render(<AppBlocks toDos={ToDoData} />, document.getElementById('root'))
-    // }
-
     let classNames = "todo-list-item"
     if (done) {
         classNames += " done"

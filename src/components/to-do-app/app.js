@@ -3,13 +3,12 @@ import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
 import ItemStatusFilter from "../item-status-filter/item-status-filter";
 import ToDoList from "../to-do-list";
-import InputPanel from "../add-app-input-panel";
-import ImportanceSelector from "../importance-selector";
-import AddBtn from "../add-btn";
 import React from "react";
+import ToDoAddForm from "../todo-addForm";
 
 class App extends React.Component{
     idSeeder = 0
+    doneCounter = 0
     state = {
         toDoData :
         [
@@ -21,7 +20,7 @@ class App extends React.Component{
 
     createItem(text) {
         return{
-            text,
+            text: text,
             important: false,
             done: false,
             id: ++this.idSeeder
@@ -34,6 +33,19 @@ class App extends React.Component{
                 ...toDoData.slice(0, idx),
                 ...toDoData.slice(idx + 1)
             ]
+            if(toDoData[idx].done)
+                this.doneCounter--
+            return {
+                toDoData: newArray
+            }
+        })
+    }
+    addItem = (newTodo) => {
+        this.setState(({toDoData}) => {
+            const newArray = [
+                this.createItem(newTodo),
+                ...toDoData
+            ]
             return {
                 toDoData: newArray
             }
@@ -44,11 +56,17 @@ class App extends React.Component{
         const idx = arr.findIndex((prop) => prop.id === id)
         const oldItem = arr[idx]
         const newItem = {...oldItem, [propName]: !oldItem[propName]}
-        return {
+
+        if(propName === "done" && newItem.done)
+            this.doneCounter++
+        else if(propName === "done")
+            this.doneCounter--
+
+        return [
             ...arr.slice(0, idx),
             newItem,
             ...arr.slice(idx + 1)
-        }
+        ]
     }
     onToggleImportant = (id) =>{
         this.setState(({toDoData}) => {
@@ -67,7 +85,7 @@ class App extends React.Component{
     render() {
         return(
             <div className="todo-app">
-                <AppHeader todo={1} done={2}/>
+                <AppHeader done={this.doneCounter} todo={this.state.toDoData.length - this.doneCounter}/>
                 <div className="top-panel d-flex">
                     <SearchPanel/>
                     <ItemStatusFilter/>
@@ -77,11 +95,7 @@ class App extends React.Component{
                           onToggleImportant={this.onToggleImportant}
                           onToggleDone={this.onToggleDone}
                 />
-                <div className="top-panel d-flex">
-                    <InputPanel/>
-                    <ImportanceSelector/>
-                    <AddBtn/>
-                </div>
+                <ToDoAddForm onAdd={this.addItem}/>
             </div>
         )
     }

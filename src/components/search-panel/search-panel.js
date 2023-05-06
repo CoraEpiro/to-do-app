@@ -6,5 +6,4 @@ const SearchPanel = () => {
         style = {searchStyle}
     />
   }
-
 export default SearchPanel

@@ -5,7 +5,7 @@ import "./to-do-list.css"
 
 const TodoList = ({
                       todos,
-                      onDeleted,
+                      onDelete,
                       onToggleDone,
                       onToggleImportant
                   }) => {
@@ -15,8 +15,8 @@ const TodoList = ({
         return (
             <li key={id} className="list-group-item">
                 <ToDoListItem {...itemProps}
-                              onDeleted={() => {
-                                  onDeleted(id)
+                              onDelete={() => {
+                                  onDelete(id)
                               }}
                               onToggleDone = {() => {
                                   onToggleDone(id)

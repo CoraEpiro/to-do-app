@@ -7,5 +7,4 @@ const AppHeader = ({todo, done}) => {
         </div>
     )
   }
-
 export default AppHeader
