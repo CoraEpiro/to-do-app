@@ -1,35 +1,38 @@
 import React from "react";
 
+import "./todo-addForm.css"
+
 class ToDoAddForm extends React.Component{
 
     state = {
         newTodo: '',
     };
+
     handleInputChange = (event) => {
         this.setState({
             newTodo: event.target.value,
         });
     }
 
-    render() {
-        const {onAdd} = this.props
-        const handleSubmit = (e) => {
-            e.preventDefault();
-            if(this.state.newTodo.trim() !== "")
-            {
-                onAdd(this.state.newTodo)
-                this.state.newTodo = ""
-            }
-        };
+    handleSubmit = (event) => {
+        event.preventDefault();
+        if(this.state.newTodo.trim() !== "")    
+        {
+            this.props.onAdd(this.state.newTodo)
+            this.setState({
+                newTodo: ""
+            })
+        }
+    };
 
-        const inputStyle = {fontSize: '20px'}
+    render() {
         const inputText = "Add a new ToDo"
 
         return(
-            <form className="top-panel d-flex"
-                  onSubmit={handleSubmit}>
+            <form className="item-add-form d-flex"
+                  onSubmit={this.handleSubmit}>
                 <input type="text"
-                       style={inputStyle}
+                       className="form-control"
                        placeholder={inputText}
                        value={this.state.newTodo}
                        onChange={this.handleInputChange} />

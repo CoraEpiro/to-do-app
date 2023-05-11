@@ -8,14 +8,16 @@ import ToDoAddForm from "../todo-addForm";
 
 class App extends React.Component{
     idSeeder = 0
-    doneCounter = 0
     state = {
         toDoData :
         [
             this.createItem("Wake Up!"),
             this.createItem("Have Breakfast"),
             this.createItem("Work on Project")
-        ]
+            
+        ],
+        term: "",
+        filter: "all"
     }
 
     createItem(text) {
@@ -33,8 +35,6 @@ class App extends React.Component{
                 ...toDoData.slice(0, idx),
                 ...toDoData.slice(idx + 1)
             ]
-            if(toDoData[idx].done)
-                this.doneCounter--
             return {
                 toDoData: newArray
             }
@@ -57,11 +57,6 @@ class App extends React.Component{
         const oldItem = arr[idx]
         const newItem = {...oldItem, [propName]: !oldItem[propName]}
 
-        if(propName === "done" && newItem.done)
-            this.doneCounter++
-        else if(propName === "done")
-            this.doneCounter--
-
         return [
             ...arr.slice(0, idx),
             newItem,
@@ -82,15 +77,51 @@ class App extends React.Component{
             }
         })
     }
+    
+    onSearchChange = (term) => {
+        this.setState({term})
+    }
+    
+    searchTodos(toDos, term) {
+        if(term.length === 0)
+            return toDos
+        
+        return toDos.filter((item) => item.text.toLowerCase().includes(term.toLowerCase()))
+    }
+
+    onFilterChange = (filter)=>{
+        this.setState({filter})
+    }
+
+    filterStatus(toDos, filter) {
+        switch (filter){
+            case "all":
+                return toDos
+            case "active":
+                return toDos.filter(toDo => !toDo.done)
+            case "done":
+                return toDos.filter(toDo => toDo.done)
+            default:
+                return toDos
+        }
+    }
+
     render() {
+        const {toDoData, term, filter} = this.state;
+        const searchedTodos = this.filterStatus(this.searchTodos(toDoData, term), filter);
+        const doneCount = toDoData.filter(item => item.done).length;
+        const moreCount = toDoData.length - doneCount
+
         return(
             <div className="todo-app">
-                <AppHeader done={this.doneCounter} todo={this.state.toDoData.length - this.doneCounter}/>
+                <AppHeader done={doneCount} todo={moreCount}/>
                 <div className="top-panel d-flex">
-                    <SearchPanel/>
-                    <ItemStatusFilter/>
+                    <SearchPanel onSearchChange={this.onSearchChange}/>
+                    <ItemStatusFilter
+                        filter={filter}
+                        onFilterChange={this.onFilterChange}/>
                 </div>
-                <ToDoList todos={this.state.toDoData}
+                <ToDoList todos={searchedTodos}
                           onDelete={this.deleteItem}
                           onToggleImportant={this.onToggleImportant}
                           onToggleDone={this.onToggleDone}
